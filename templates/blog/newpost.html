@@ -1,0 +1,24 @@
+<link rel="stylesheet" href="/static/css/main.css">
+<title>CodeWithAaryan | New post</title>
+{% include 'navbar/index.html'%}
+{% block content %}
+<div class="container mx-auto px-4 sm:px-6 lg:px-8">
+  <h1 class="text-3xl font-bold text-center mt-8">Create New Blog Post</h1>
+  <form method="post" enctype="multipart/form-data" class="mt-8">
+    <div class="mb-4">
+      <label for="title" class="block text-gray-700 font-bold mb-2">Title</label>
+      <input type="text" name="title" id="title" class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+    </div>
+    <div class="mb-4">
+      <label for="content" class="block text-gray-700 font-bold mb-2">Content</label>
+      <textarea name="content" id="content" class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" rows="10" required></textarea>
+    </div>
+    <div class="mb-4">
+      <label for="image" class="block text-gray-700 font-bold mb-2">Image</label>
+      <input type="file" name="image" id="image" accept="image/*" class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+    </div>
+    <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full sm:w-auto">Submit</button>
+  </form>
+</div>
+
+{% endblock %}

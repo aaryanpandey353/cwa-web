@@ -1,0 +1,134 @@
+<link rel="stylesheet" href="/static/css/main.css">
+<title>CodeWithAaryan | {{ post.title }}</title>
+{% include 'navbar/index.html'%}
+{% block content %}
+<div class="container mt-5">
+  <!-- <div>
+    <div>
+      <div class="post-container">
+        {% if post.image %}
+          <img src="{{ url_for('static', filename='uploads/' + post.image) }}" alt="Post Image">
+        {% endif %}
+        <h1 class="post-title">{{ post.title }}</h1>
+        {% for paragraph in paragraphs %}
+          <p class="post-paragraph">{{ paragraph | safe }}</p>
+        {% endfor%}
+        <div class="post-footer">
+          <div class="post-tags">
+            <span class="tag">Technology</span>
+            <span class="tag">Programming</span>
+            <span class="tag">Web Development</span>
+          </div>
+          <div class="post-author">
+            <img src="https://via.placeholder.com/50x50" alt="Author Image" class="author-image">
+            <span class="author-name">John Doe</span>
+          </div>
+        </div>
+      </div>
+
+      <style>
+        .post-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+
+.post-title {
+  font-size: 32px;
+  font-weight: bold;
+  margin-top: 0;
+}
+
+.post-paragraph {
+  font-size: 18px;
+  line-height: 1.5;
+  margin: 20px 0;
+}
+
+.post-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 30px;
+}
+
+.post-tags {
+  display: flex;
+}
+
+.tag {
+  background-color: #ccc;
+  color: #333;
+  padding: 5px 10px;
+  border-radius: 20px;
+  margin-right: 10px;
+  font-size: 14px;
+}
+
+.author-image {
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.author-name {
+  font-size: 16px;
+}
+
+      </style>
+      
+    </div>
+  </div> -->
+
+
+  <div class="py-5 mx-7 " id="imgpreview">
+    <div class="min-h-screen lg:mx-[20%] md:mx-[10%]">
+      <h1 class="text-2xl lg:text-3xl flex font-semibold dark:text-white">{{ post.title}}</h1>
+      <div class="cont font-karla dark:text-gray-300 mt-2">
+        {% for paragraph in paragraphs %}
+          <p class="post-paragraph p-2">{{ paragraph | safe }}</p>
+        {% endfor %}
+      </div>
+      <hr class="mt-10">
+      <div class="flex items-center justify-center shadow-lg mt-10 border mb-7 max-w-lg rounded-lg dark:border-black ">
+        <form action="/comment" method="post" class="w-full max-w-xl bg-white rounded-lg px-4 pt-2 dark:bg-slate-700">
+          <input type="hidden" name="post_id" value="{{ post._id }}">
+          <div class="flex flex-wrap -mx-3 mb-6">
+            <h2 class="px-4 pt-3 pb-2 text-gray-800 text-lg dark:text-gray-300">Add a new comment</h2>
+            <div class="w-full md:w-full px-3 mb-2 mt-2"><textarea
+                class="bg-gray-100 rounded border border-gray-400 leading-normal resize-none w-full h-20 py-2 px-3 font-medium placeholder-gray-700 focus:outline-none focus:bg-white dark:bg-slate-600 dark:text-gray-200 dark:placeholder-gray-400"
+                name="comment_text" placeholder="Type Your Comment" required=""></textarea></div>
+            <div class="w-full md:w-full flex items-start px-3">
+              <div class="-mr-1"><input type="submit"
+                  class="disabled:bg-gray-200 disabled:text-gray-400 disabled:cursor-default text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-3 py-2 text-center inline-flex items-center mx-1 cursor-pointer "
+                  value="Post Comment"></div>
+            </div>
+          </div>
+        </form>
+      </div>
+<hr class="mb-1">
+
+<div class="infinite-scroll-component__outerdiv">
+  {% for comment in comments %}
+  <div class="comment border border-gray-300 rounded-lg p-4 mb-4">
+    <p class="text-gray-800 dark:text-gray-300">{{ comment.comment_text }}</p>
+    <p class="text-gray-600 dark:text-gray-400">Posted by {{ comment.username }}</p>
+  </div>
+  {% endfor %}
+</div>
+
+      </div>
+      
+      
+      <!-- <form action="/comment" method="post">
+        <input type="hidden" name="post_id" value="{{ post._id }}">
+        <textarea name="comment_text"></textarea>
+        <button type="submit">Submit</button>
+      </form> -->
+    </div>
+  </div>
+  </div>
+  {% endblock %}
+
+  {% include 'footer/index.html' %}

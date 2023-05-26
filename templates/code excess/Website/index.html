@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CodeWithAaryan | Code Editor</title>
+    <link rel="stylesheet" href="/static/css/main.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" />
+    <style>
+        .editor {
+            height: 500px;
+        }
+    </style>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body class="bg-gray-100">
+    {% include 'navbar/index.html' %}
+
+    <div class="editor-controls ">
+        <button class="btn-zoom-in  text-white p-2 w-10 h-10 bg-gray-900 rounded-full ml-2 mt-2 ">+</button>
+        <button class="btn-zoom-out  text-white p-2 w-10 h-10 bg-gray-900 rounded-full ml-2 mt-2 ">-</button>
+        <button class="btn-download text-white  h-10 w-20 bg-gray-900 rounded-xl ml-2 mt-2 ">Download</button>
+        <label for="folder-name" class="block text-gray-700 font-bold mb-2 ml-4 mt-2 ">Folder Name:</label>
+        <input type="text" id="folder-name" name="folder-name" placeholder="Enter folder name" class=" mt-2 ml-4 w-40 px-3 py-2 border rounded-md text-gray-700 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500">
+        
+    </div>
+
+    <div class="container mx-auto my-8">
+        <div class="flex flex-wrap -mx-4">
+            <div class="w-full md:w-1/2 px-4">
+                <h1 class="text-2xl font-bold mb-4">HTML</h1>
+                <div id="html-editor" class="editor"></div>
+            </div>
+            <div class="w-full md:w-1/2 px-4">
+                <h1 class="text-2xl font-bold mb-4">Preview</h1>
+                <iframe id="preview" class="w-full h-full"></iframe>
+            </div>
+            <div class="w-full md:w-1/2 px-4">
+                <h1 class="text-2xl font-bold mb-4">CSS (using TailwindCSS)</h1>
+                <div id="css-editor" class="editor"></div>
+            </div>
+            <div class="w-full md:w-1/2 px-4">
+                <h1 class="text-2xl font-bold mb-4">JS</h1>
+                <div id="js-editor" class="editor"></div>
+            </div>
+        </div>
+    </div>
+
+    {% include 'footer/index.html' %}
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.6.0/jszip.min.js"></script>
+    <script>
+        var htmlEditor = ace.edit("html-editor");
+        htmlEditor.setTheme("ace/theme/twilight");
+        htmlEditor.session.setMode("ace/mode/html");
+
+        var cssEditor = ace.edit("css-editor");
+        cssEditor.setTheme("ace/theme/twilight");
+        cssEditor.session.setMode("ace/mode/css");
+
+        var jsEditor = ace.edit("js-editor");
+        jsEditor.setTheme("ace/theme/twilight");
+        jsEditor.session.setMode("ace/mode/javascript");
+
+        var preview = document.getElementById("preview");
+
+        function updatePreview() {
+            var html = htmlEditor.getValue();
+            var css = cssEditor.getValue();
+            var js = jsEditor.getValue();
+            var previewDoc = preview.contentDocument || preview.contentWindow.document;
+            previewDoc.body.innerHTML = html;
+            var style = previewDoc.createElement("style");
+            style.innerHTML = css;
+            previewDoc.head.appendChild(style);
+            try {
+                previewDoc.eval(js);
+            } catch (e) {
+                console.error(e);
+            }
+        }
+
+        htmlEditor.session.on("change", updatePreview);
+        cssEditor.session.on("change", updatePreview);
+        jsEditor.session.on
+        var btnZoomIn = document.querySelector(".btn-zoom-in");
+        var btnZoomOut = document.querySelector(".btn-zoom-out");
+        var editorContainers = document.querySelectorAll(".editor");
+
+        // Add zoom in functionality
+        btnZoomIn.addEventListener("click", function () {
+            editorContainers.forEach(function (container) {
+                var fontSize = parseInt(getComputedStyle(container).fontSize) || 14;
+                container.style.fontSize = fontSize + 1 + "px";
+            });
+        });
+
+        // Add zoom out functionality
+        btnZoomOut.addEventListener("click", function () {
+            editorContainers.forEach(function (container) {
+                var fontSize = parseInt(getComputedStyle(container).fontSize) || 14;
+                container.style.fontSize = fontSize - 1 + "px";
+            });
+        });
+
+        // Add download functionality
+        var btnDownload = document.querySelector(".btn-download");
+        btnDownload.addEventListener("click", function () {
+            var zip = new JSZip();
+            var htmlContent = htmlEditor.getValue();
+            var cssContent = cssEditor.getValue();
+            var jsContent = jsEditor.getValue();
+            var folderName = document.getElementById("folder-name").value || "OurAmazingProject"; // use input value or default name
+var folder = zip.folder(folderName);
+
+var folderName = document.getElementById("folder-name").value || "OurAmazingProject"; // use input value or default name
+var folder = zip.folder(folderName);
+folder.file("index.html", htmlContent);
+folder.file("style.css", cssContent);
+folder.file("script.js", jsContent);
+zip.generateAsync({ type: "blob" }).then(function (content) {
+    var downloadLink = document.createElement("a");
+    downloadLink.href = URL.createObjectURL(content);
+    downloadLink.download = folderName + ".zip"; // use folderName for the download filename
+    downloadLink.click();
+});
+
+        });
+
+        updatePreview();
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/main.css">
+    <title>CodeWithAaryan | Blog</title>
+</head>
+<body class="bg-gray-100">
+  {% include 'navbar/index.html'%}
+  {% for post in posts %}
+  <div class="width">
+    <div class="bg-white rounded-lg shadow-lg overflow-hidden w-3/4 mt-8 ml-8">
+      <div class="p-6">
+        <h2 class="text-2xl font-bold mb-4"><a class="text-blue-600 hover:text-blue-800" href="{{ url_for('show_post', post_id=post._id) }}">{{ post.title }}</a></h2>
+        {% if post and 'content' in post %}
+        <p class="text-gray-700">{{ post.content[:100] }}...</p>
+        {% endif%}
+      </div>
+    </div>
+    
+    </div>
+    
+  </div>
+  <br>
+
+  
+{% endfor %}
+  
+
+    
+    {% include 'footer/index.html' %}
+</body>
+
+</html>

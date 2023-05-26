@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='codemirror/lib/codemirror.css') }}">
+    <script src="{{ url_for('static', filename='codemirror/lib/codemirror.js') }}"></script>
+    <script src="{{ url_for('static', filename='codemirror/mode/python/python.js') }}"></script>
+</head>
+<body>
+    <!-- Your HTML content here -->
+    <textarea id="code-editor"></textarea>
+    <button id="run-button">Run Code</button>
+    <pre id="output"></pre>
+    <script src="/static/js/python.js"></script>
+</body>
+</html>

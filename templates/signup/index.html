@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>CodeWithAaryan | Sign up</title>
+	<link rel="stylesheet" href="/static/css/main.css">
+</head>
+<body class="bg-gray-200">
+    {% include 'navbar/index.html' %}
+	<div class="max-w-md mx-auto my-24 bg-white p-6 rounded-md shadow-md">
+		<h1 class="text-3xl font-bold mb-6 text-center">Sign up</h1>
+		{% for error in form.username.errors %}
+			<p style="color:red">{{ error }}</p>
+		{% endfor %}
+		{% for error in form.password.errors %}
+			<p style="color:red">{{ error }}</p>
+		{% endfor %}
+		<form method="POST" class="space-y-4">
+			{{ form.csrf_token }}
+			<div>
+				<label for="{{ form.username.id }}" class="block font-medium text-sm text-gray-700 mb-2">{{ form.username.label }}</label>
+				<input type="{{ form.username.type }}" id="{{ form.username.id }}" name="{{ form.username.name }}" value="{{ form.username.data }}" class="appearance-none border border-gray-400 rounded-md py-2 px-3 w-full focus:outline-none focus:border-indigo-500" required>
+			</div>
+			<div>
+				<label for="{{ form.password.id }}" class="block font-medium text-sm text-gray-700 mb-2">{{ form.password.label }}</label>
+				<input type="{{ form.password.type }}" id="{{ form.password.id }}" name="{{ form.password.name }}" value="{{ form.password.data }}" class="appearance-none border border-gray-400 rounded-md py-2 px-3 w-full focus:outline-none focus:border-indigo-500" required>
+			</div>
+			<div>
+				<label for="{{ form.confirm_password.id }}" class="block font-medium text-sm text-gray-700 mb-2">{{ form.confirm_password.label }}</label>
+				<input type="{{ form.confirm_password.type }}" id="{{ form.confirm_password.id }}" name="{{ form.confirm_password.name }}" value="{{ form.confirm_password.data }}" class="appearance-none border border-gray-400 rounded-md py-2 px-3 w-full focus:outline-none focus:border-indigo-500" required>
+			</div>
+			<div>
+				<button type="{{ form.submit.type }}" class="bg-indigo-500 text-white py-2 px-4 rounded-md hover:bg-indigo-600">{{ form.submit.label }}</button>
+			</div>
+		</form>
+	</div>
+</body>
+</html>
